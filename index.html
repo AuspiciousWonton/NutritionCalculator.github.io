@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nutrition Calculator</title>
+        <style>
+            body {
+                background-color: rgb(228, 210, 255);
+            }
+            #step1 {
+                color: black;
+                font-size: 40px;
+            }
+            .position {
+                text-align: center; 
+                position: relative;
+                top: 3in;
+            }
+            .visual {
+                font-size: 25px;
+                border-color: rgb(255, 131, 131);
+                border-width: 5px;
+                color: rgb(0, 0, 0);
+                background-color: rgb(255, 131, 131);
+            }
+            .finalize {
+                font-size: 20px;
+                border-color: rgb(255, 131, 131);
+                border-width: 5px;
+                color: rgb(0, 0, 0);
+                background-color: rgb(255, 131, 131);
+            }
+            .space {
+                text-align: center; 
+                position: relative;
+                top: 3.2in;
+            }
+            #area0 {
+                border: solid 4px rgb(0, 128, 255);
+                bottom: 1.8in;
+                width: 450px;
+                height: 910px;
+                position: relative;
+                padding: 20px;
+                background-color: rgb(172, 236, 255);
+                color: rgb(0, 0, 0);
+                font-size: 20px;
+                visibility: hidden;
+            }
+            #area1 {
+                border: solid 4px rgb(0, 128, 255);
+                top: 0.08in;
+                width: 450px;
+                height: 910px;
+                left: 10.5in;
+                position: absolute;
+                padding: 20px;
+                background-color: rgb(172, 236, 255);
+                color: rgb(0, 0, 0);
+                font-size: 20px;
+                visibility: hidden;
+            }
+            #area2 {
+                border: solid 4px rgb(0, 128, 255);
+                top: 0.08in;
+                width: 580px;
+                height: 910px;
+                left: 4in;
+                position: absolute;
+                padding: 20px;
+                background-color: rgb(172, 236, 255);
+                color: rgb(0, 0, 0);
+                font-size: 20px;
+                visibility: hidden;
+            }
+            #creation {
+                top: 0.3in;
+                left: 14.2in;
+                bottom: 8in;
+                position: absolute;
+                text-align: center;
+            }
+            #rise {
+                top: 9.35in;
+                left: 15.2in;
+                bottom: 8in;
+                position: absolute;
+                text-align: center;
+                visibility: hidden;
+            }
+            #fall {
+                top: 9.35in;
+                left: 10.7in;
+                bottom: 8in;
+                position: absolute;
+                text-align: center;
+                visibility: hidden;
+            }
+            #cent {
+                top: 9.35in;
+                left: 13.4in;
+                bottom: 8in;
+                position: absolute;
+                text-align: center;
+                font-size: 20px;
+                visibility: hidden;
+            }
+            #previous {
+                top: 0.3in;
+                left: 10.7in;
+                bottom: 8in;
+                position: absolute;
+                text-align: center;
+                visibility: hidden;
+            }
+            .section {
+                position: relative;
+                left: 50%;
+                
+            }
+            .title {
+                text-align: center;
+            }
+            .support {
+                float: right;
+            }
+            #scribble {
+                visibility: hidden;
+            }
+            #countup {
+                visibility: hidden;
+            }
+            .rating {
+                float: right;
+            }
+            #foodname { 
+                display: block;
+                margin: auto;
+            }
+            #foodresult {
+                text-align: center;
+            }
+        </style>
+        <script>
+            var foodname = [];
+            var shift = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var fixer = 0;
+            var boxnum = 0;
+            var data = [];
+            var mass = [];
+            var centipede = 0;
+            var nutrient = ["Calorie: ", "Carbohydrates: ", "Protein: ", "Fat: ", "Calcium: ", "Magnesium: ", "Phosphorous: ", "Potassium: ", "Fluoride: ", 
+            "Zinc: ", "Choline: ", "Iron: ", "Manganese:  ", "Sodium: ", "Vitamin C:  ", "Vitamin B1 [Thiamin]:  ", "Vitamin B2 [Riboflavin]:  ", "Vitamin B3 [Niacin]:  ", 
+            "Vitamin B5 [Pantothenic Acid]:  ", "Vitamin B6 [Pyridoxine]:  ", "Vitamin E:  ", "Vitamin A:  ", "Vitamin D:  ", "Vitamin K:  ", "Vitamin B7 [Biotin]:  ", 
+            "Vitamin B9 [Folate]:  ", "Vitamin B12 [Cobalamin]:  ", "Chromium:  ", "Copper:  ", "Iodine:  ", "Molybdenum:  ", "Selenium:  ", "Chloride:  ", 
+            "Sulfur: "];
+            function create() {
+                document.getElementById("page1").style.visibility = "hidden";
+                document.getElementById("area0").style.visibility = "visible";
+                for (let n = 0; n < 34; n++) {
+                    var name = document.createElement("label");
+                    var space = document.createElement("br");
+                    var slot = document.createElement("input");
+                    var final = document.createElement("span");
+                    var signal = "#require" + boxnum + n + ":hover + #topic" + boxnum + n + " {background-color: yellow;}";
+                    var mood = document.createElement("style");
+                    mood.innerText = signal;
+                    slot.type = "text";
+                    slot.id = "require" + boxnum + n;
+                    slot.value = "---" //Delete after you finish with testing
+                    slot.className = "support";
+                    name.for = "require" + boxnum + n;
+                    name.innerHTML = nutrient[n];
+                    name.id = "topic" + boxnum + n;
+                    final.id = "claim" + boxnum + n;
+                    space.id = "lead" + boxnum + n;
+                    document.getElementById("item" + boxnum).appendChild(slot);
+                    document.getElementById("item" + boxnum).appendChild(name);
+                    document.getElementById("item" + boxnum).appendChild(final);
+                    document.getElementById("item" + boxnum).appendChild(space);
+                    document.head.appendChild(mood);
+                }
+                if (boxnum > 0) {
+                    document.getElementById("preserve1").style.visibility = "visible";
+                    document.getElementById("area1").style.visibility = "visible";
+                }
+            }
+            function record() {
+                var stop = "";
+                var fill = [];
+                for (let t = 0; t < 34; t++) {
+                    var check = document.getElementById("require" + boxnum + t).value;
+                    if (check == "---") {
+                        check = check;
+                    } else {
+                        check = Number(check);
+                    }
+                    if (check == "---") {
+                        document.getElementById("require" + boxnum + t).style.backgroundColor = "white";
+                    } else if (check === ""  || isNaN(check) === true || check <= 0) {
+                        stop = "true";
+                        document.getElementById("require" + boxnum + t).style.backgroundColor = "red"
+                    } else {
+                        document.getElementById("require" + boxnum + t).style.backgroundColor = "white";
+                    }
+                }
+                if (stop === "true" && check !== "---") {
+                    alert("Error: Please choose a positive number (not 0), no letters, and fill all empty spaces");
+                    return; 
+                } 
+                for (let n = 0; n < 34; n++) {
+                    var steal = document.getElementById("require" + boxnum + n).value;
+                    fill.push(steal);
+                    if (steal !== "---") {
+                        if (n > 20) {
+                        document.getElementById("claim" + boxnum + n).innerHTML = steal + "mcg";
+                        } else if (n > 3) {
+                            document.getElementById("claim" + boxnum + n).innerHTML = steal + "mg";
+                        } else if (n > 0) {
+                            document.getElementById("claim" + boxnum + n).innerHTML = steal + "g";
+                        } else {
+                            document.getElementById("claim" + boxnum + n).innerHTML = steal; //get rid of "g" after you are done with Gala Apple Video
+                        }
+                    } else {
+                        document.getElementById("claim" + boxnum + n).innerHTML = steal;
+                    }
+                    document.getElementById("require" + boxnum + n).remove();
+                }
+                data.push(fill);
+                window.boxnum = window.boxnum + 1;
+                window.fixer = window.boxnum;
+                document.getElementById("preserve0").style.visibility = "hidden";
+                document.getElementById("preserve1").style.visibility = "hidden";
+                document.getElementById("scribble").style.visibility = "visible";
+                if (boxnum > 1) {
+                    document.getElementById("rise").style.visibility = "visible";
+                    document.getElementById("fall").style.visibility = "visible";
+                    document.getElementById("cent").style.visibility = "visible";
+                    var reaper = document.getElementById("foodname").value;
+                    foodname.push(reaper);
+                    document.getElementById("foodname").style.visibility = "hidden";
+                    document.getElementById("foodresult").innerText = reaper;
+                    document.getElementById("foodresult").style.visibility = "visible";
+                }
+                if (boxnum > 2) {
+                    document.getElementById("countdown").style.visibility = "visible";
+                }
+                document.getElementById("area2").style.visibility = "visible";
+            }
+            function reset() { 
+                window.boxnum = window.fixer;
+                document.getElementById("countdown").style.visibility = "hidden";
+                document.getElementById("scribble").style.visibility = "hidden";
+                document.getElementById("foodname").style.visibility = "visible";
+                document.getElementById("foodname").value = "";
+                document.getElementById("foodresult").style.visibility = "hidden";
+                document.getElementById("rise").style.visibility = "hidden";
+                document.getElementById("fall").style.visibility = "hidden";
+                document.getElementById("cent").style.visibility = "hidden";
+                if (boxnum > 1) {
+                    document.getElementById("item" + (boxnum - 1)).id = "item" + boxnum;
+                    for (let d = 0; d < 34; d++) {
+                        document.getElementById("claim" + (boxnum - 1) + d).remove();
+                        document.getElementById("topic" + (boxnum - 1) + d).remove();
+                        document.getElementById("lead" + (boxnum - 1) + d).remove();
+                    }
+                    mass.push(document.getElementById("weight").innerHTML);
+                }
+                document.getElementById("weight").innerHTML = 0;
+                window.centipede = 0;
+            }
+            function decrease() {
+                if (fixer === boxnum) {
+                    window.boxnum = window.boxnum - 2;
+                    mass.push(document.getElementById("weight").innerHTML);
+                } else {
+                    window.boxnum = window.boxnum - 1;
+                }
+                document.getElementById("scribble").innerHTML = ">";
+                document.getElementById("scribble").onclick = increase;
+                document.getElementById("creation").style.left = "15.2in";
+                if (boxnum === 1) {
+                    document.getElementById("countdown").style.visibility = "hidden";  
+                } 
+                for (let v = 0; v < 34; v++) {
+                    document.getElementById("claim" + (fixer - 1) + v).innerHTML = data[boxnum][v];
+                }
+                document.getElementById("foodresult").innerHTML = foodname[boxnum - 1];
+                window.mass[boxnum] = document.getElementById("weight").innerHTML;
+                document.getElementById("weight").innerHTML = mass[boxnum - 1];
+                window.centipede = mass[boxnum - 1];
+            }
+            function increase() {
+                window.boxnum = window.boxnum + 1;
+                document.getElementById("countdown").style.visibility = "visible";
+                if (boxnum === (fixer - 1)) {
+                    document.getElementById("scribble").onclick = function both() {reset(); create();};
+                    document.getElementById("scribble").innerHTML = "Create Item";
+                    document.getElementById("creation").style.left = "14.2in";
+                }
+                for (let b = 0; b < 34; b++) {
+                    document.getElementById("claim" + (fixer - 1) + b).innerHTML = data[boxnum][b];
+                }
+                document.getElementById("foodresult").innerHTML = foodname[boxnum - 1];
+                window.mass[boxnum - 2] = document.getElementById("weight").innerHTML;
+                document.getElementById("weight").innerHTML = mass[boxnum - 1];
+                window.centipede = mass[boxnum - 1];
+            }
+            function final() {
+                for (let c = 0; c < 34; c++) {
+                    var value = "";
+                    var name = document.createElement("label");
+                    var space = document.createElement("br");
+                    var final = document.createElement("span");
+                    var signal = "#nut" + c + ":hover + #prog" + c + " {background-color: yellow;}";
+                    var show = "#prog" + c + " {color: rgb(195, 195, 0);}";
+                    var mood = document.createElement("style");
+                    var tone = document.createElement("style");
+                    tone.innerText = show;
+                    mood.innerText = signal;
+                    name.innerHTML = nutrient[c];
+                    name.id = "nut" + c;
+                    final.id = "prog" + c;
+                    space.id = "jump"  + c;
+                    if (c > 19) {
+                        value = "mcg";
+                    } else if (c > 3) {
+                        value = "mg";
+                    } else if (c > 0) {
+                        value = "g";
+                    } else {
+                        value = "";
+                    }
+                    if (data[0][c] == "---") {
+                        final.innerHTML = data[0][c];
+                    } else {
+                        final.innerHTML = "0" + value + " out of " + data[0][c] + value + " (0%)" //get rid of the g when done with Gala Apple Video
+                    }
+                    final.className = "rating";
+                    document.getElementById("cross").appendChild(name);
+                    document.getElementById("cross").appendChild(final);
+                    document.getElementById("cross").appendChild(space);
+                    document.head.appendChild(mood);
+                    document.head.appendChild(tone);
+                }
+            }
+            function minus() {
+                if (centipede === 0) {
+                    return;
+                }
+                window.centipede = window.centipede - 1;
+                document.getElementById("weight").innerHTML = centipede;
+                if (fixer === boxnum) {
+                    boxnum = boxnum - 1;
+                }
+                for (let y = 0; y < 34; y++) {
+                    var value = "";
+                    if (data[boxnum][y] == "---") {
+                        window.shift[y] == "---";
+                    } else {
+                        window.shift[y] = window.shift[y] - data[boxnum][y];
+                    }
+                    var percentage = window.shift[y]/data[0][y] * 100;
+                    percentage = percentage.toFixed(0);
+                    if (data[0][y] == "---" || data[boxnum][y] == "---") {
+                        document.getElementById("prog" + y).style.color = "gray";
+                    } else if (percentage < 100) {
+                        document.getElementById("prog" + y).style.color = "rgb(195, 195, 0)";
+                    } else if (percentage == 100) {
+                        document.getElementById("prog" + y).style.color = "green";
+                    } else { 
+                        document.getElementById("prog" + y).style.color = "red";
+                    } 
+                    if (y > 20) {
+                        value = "mcg";
+                    } else if (y > 3) {
+                        value = "mg";
+                    } else if (y > 0) {
+                        value = "g";
+                    } else {
+                        value = "";
+                    }
+                    if (data[0][y] == "---" || data[boxnum][y] == "---") {
+                        document.getElementById("prog" + y).innerHTML = "---";
+                    } else {
+                        window.shift[y] = window.shift[y].toFixed(2);
+                        document.getElementById("prog" + y).innerHTML = window.shift[y] + value + " out of " + data[0][y] + value + "(" + percentage + "%)"; //get rid of "g" after you are done with Gala Apple Video
+                    }
+                }
+            }
+            function add() {
+                var value = "";
+                window.centipede = Number(window.centipede) + 1;
+                document.getElementById("weight").innerHTML = centipede;
+                if (fixer === boxnum) {
+                    boxnum = boxnum - 1;
+                }
+                for (let z = 0; z < 34; z++) {
+                    if (data[boxnum][z] == "---") {
+                        window.shift[z] = "---";
+                    } else {
+                        window.shift[z] = Number(window.shift[z]) + Number(data[boxnum][z]);
+                    }
+                    var percentage = window.shift[z]/data[0][z] * 100;
+                    if (data[0][z] == "---" || window.shift[z] == "---") {
+                        document.getElementById("prog" + z).style.color = "gray";
+                    } else if (percentage < 100) {
+                        document.getElementById("prog" + z).style.color = "rgb(195, 195, 0)";
+                    } else if (percentage == 100) {
+                        document.getElementById("prog" + z).style.color = "green";
+                    } else { 
+                        document.getElementById("prog" + z).style.color = "red";
+                    } 
+                    percentage = percentage.toFixed(2);
+                    if (z > 20) {
+                        value = "mcg";
+                    } else if (z > 3) {
+                        value = "mg";
+                    } else if (z > 0) {
+                        value = "g";
+                    } else {
+                        value = "";
+                    }
+                    if (data[0][z] == "---" || window.shift[z] == "---") {
+                        document.getElementById("prog" + z).innerHTML = "---";
+                    } else {
+                        window.shift[z] = window.shift[z].toFixed(2);
+                        document.getElementById("prog" + z).innerHTML = window.shift[z] + value + " out of " + data[0][z] + value + "(" + percentage + "%)"; //get rid of "g" after you are done with Gala Apple Video
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="page1">
+            <h1 id="step1" class="position">Nutrition Calculator</h1>
+            <div class="position">
+                <button type="button" class="visual" onclick="create()">Custom</button>
+            </div>
+            <div class="space">
+                <button type="button" class="visual">Credits</button> <!-- Use this for Credits later-->
+            </div>
+        </div>
+        <div id="area0">
+            <form id="item0">
+                <h2 class="title">Plan</h2>
+            </form>
+            <div class="section">
+                <br />
+                <button type="button" id="preserve0" class="finalize" onclick="record(), final()">Save</button>
+            </div>
+        </div>
+        <div id="area1">
+            <form id="item1" class="inventory">
+                <input type="text" id="foodname" />
+                <h2 id="foodresult"></h2>
+            </form> 
+            <div class="section">
+                <br />
+                <button type="button" id="preserve1" class="finalize" onclick="record()">Save</button>
+            </div>
+        </div>
+        <div id="creation">
+            <button type="button" id="scribble" class="finalize" onclick= "reset(), create()">Create Item</button>
+        </div>
+        <div id="previous">
+            <button type="button" class="finalize" id="countdown" onclick="decrease()">&lt;</button>
+        </div> 
+        <div id="area2">
+            <form id="cross">
+                <h2 class="title" id="result">Progress</h2>
+            </form>
+        </div>
+        <div id="fall">
+            <button type="button" class="finalize" id="subtract" onclick="minus()">-</button>
+        </div>
+        <div id="rise">
+            <button type="button" class="finalize" id="add" onclick="add()">+</button>
+        </div>
+        <div id="cent">
+            <span id="weight">0</span>
+        </div>
+    </body>
+</html>
