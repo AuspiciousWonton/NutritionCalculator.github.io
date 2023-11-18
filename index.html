@@ -168,7 +168,7 @@
             var data = [];
             var mass = [];
             var centipede = 0;
-            var nutrient = ["Calorie: ", "Carbohydrates: ", "Protein: ", "Fat: ", "Calcium: ", "Magnesium: ", "Phosphorous: ", "Potassium: ", "Fluoride: ", 
+            var nutrient = ["Calorie: ", "Carbohydrates: ", "Added Sugars: ", "Protein: ", "Fat: ", "Calcium: ", "Magnesium: ", "Phosphorous: ", "Potassium: ", "Fluoride: ", 
             "Zinc: ", "Choline: ", "Iron: ", "Manganese:  ", "Sodium: ", "Vitamin C:  ", "Vitamin B1 [Thiamin]:  ", "Vitamin B2 [Riboflavin]:  ", "Vitamin B3 [Niacin]:  ", 
             "Vitamin B5 [Pantothenic Acid]:  ", "Vitamin B6 [Pyridoxine]:  ", "Vitamin E:  ", "Vitamin A:  ", "Vitamin D:  ", "Vitamin K:  ", "Vitamin B7 [Biotin]:  ", 
             "Vitamin B9 [Folate]:  ", "Vitamin B12 [Cobalamin]:  ", "Chromium:  ", "Copper:  ", "Iodine:  ", "Molybdenum:  ", "Selenium:  ", "Chloride:  ", 
@@ -187,7 +187,7 @@
                     document.getElementById("page1").style.visibility = "hidden";
                     document.getElementById("area0").style.visibility = "visible";
                     var waste = [];
-                    for (let q = 0; q < 34; q++) {
+                    for (let q = 0; q < 35; q++) {
                         var name = document.createElement("label");
                         var space = document.createElement("br");
                         var final = document.createElement("span");
@@ -212,7 +212,7 @@
             function create() {
                 document.getElementById("page1").style.visibility = "hidden";
                 document.getElementById("area0").style.visibility = "visible";
-                for (let n = 0; n < 34; n++) {
+                for (let n = 0; n < 35; n++) {
                     var name = document.createElement("label");
                     var space = document.createElement("br");
                     var slot = document.createElement("input");
@@ -222,6 +222,7 @@
                     mood.innerText = signal;
                     slot.type = "text";
                     slot.id = "require" + boxnum + n;
+                    slot.value = "---" //Delete after you finish with testing
                     slot.className = "support";
                     name.for = "require" + boxnum + n;
                     name.innerHTML = nutrient[n];
@@ -242,7 +243,7 @@
             function record() {
                 var stop = "";
                 var fill = [];
-                for (let t = 0; t < 34; t++) {
+                for (let t = 0; t < 35; t++) {
                     var check = document.getElementById("require" + boxnum + t).value;
                     if (check == "---") {
                         check = check;
@@ -262,14 +263,14 @@
                     alert("Error: Please choose a positive number (not 0), no letters, and fill all empty spaces");
                     return; 
                 } 
-                for (let n = 0; n < 34; n++) {
+                for (let n = 0; n < 35; n++) {
                     var steal = document.getElementById("require" + boxnum + n).value;
                     fill.push(steal);
                     localStorage.setItem("detail" + boxnum + n, steal);
                     if (steal !== "---") {
-                        if (n > 20) {
+                        if (n > 21) {
                         document.getElementById("claim" + boxnum + n).innerHTML = steal + "mcg";
-                        } else if (n > 3) {
+                        } else if (n > 4) {
                             document.getElementById("claim" + boxnum + n).innerHTML = steal + "mg";
                         } else if (n > 0) {
                             document.getElementById("claim" + boxnum + n).innerHTML = steal + "g";
@@ -317,7 +318,7 @@
                 document.getElementById("cent").style.visibility = "hidden";
                 if (boxnum > 1) {
                     document.getElementById("item" + (boxnum - 1)).id = "item" + boxnum;
-                    for (let d = 0; d < 34; d++) {
+                    for (let d = 0; d < 35; d++) {
                         document.getElementById("claim" + (boxnum - 1) + d).remove();
                         document.getElementById("topic" + (boxnum - 1) + d).remove();
                         document.getElementById("lead" + (boxnum - 1) + d).remove();
@@ -340,7 +341,7 @@
                 if (boxnum === 1) {
                     document.getElementById("countdown").style.visibility = "hidden";  
                 } 
-                for (let v = 0; v < 34; v++) {
+                for (let v = 0; v < 35; v++) {
                     document.getElementById("claim" + (fixer - 1) + v).innerHTML = data[boxnum][v];
                 }
                 document.getElementById("foodresult").innerHTML = foodname[boxnum - 1];
@@ -356,7 +357,7 @@
                     document.getElementById("scribble").innerHTML = "Create Item";
                     document.getElementById("creation").style.left = "14.2in";
                 }
-                for (let b = 0; b < 34; b++) {
+                for (let b = 0; b < 35; b++) {
                     document.getElementById("claim" + (fixer - 1) + b).innerHTML = data[boxnum][b];
                 }
                 document.getElementById("foodresult").innerHTML = foodname[boxnum - 1];
@@ -365,7 +366,7 @@
                 window.centipede = mass[boxnum - 1];
             }
             function progressboard() {
-                for (let c = 0; c < 34; c++) {
+                for (let c = 0; c < 35; c++) {
                     var value = "";
                     var name = document.createElement("label");
                     var space = document.createElement("br");
@@ -411,7 +412,7 @@
                 if (fixer === boxnum) {
                     boxnum = boxnum - 1;
                 }
-                for (let y = 0; y < 34; y++) {
+                for (let y = 0; y < 35; y++) {
                     var value = "";
                     if (data[boxnum][y] == "---") {
                         window.shift[y] == "---";
@@ -429,9 +430,9 @@
                     } else { 
                         document.getElementById("prog" + y).style.color = "red";
                     } 
-                    if (y > 20) {
+                    if (y > 21) {
                         value = "mcg";
-                    } else if (y > 3) {
+                    } else if (y > 4) {
                         value = "mg";
                     } else if (y > 0) {
                         value = "g";
@@ -453,7 +454,7 @@
                 if (fixer === boxnum) {
                     boxnum = boxnum - 1;
                 }
-                for (let z = 0; z < 34; z++) {
+                for (let z = 0; z < 35; z++) {
                     if (data[boxnum][z] == "---") {
                         window.shift[z] = "---";
                     } else {
@@ -470,9 +471,9 @@
                         document.getElementById("prog" + z).style.color = "red";
                     } 
                     percentage = percentage.toFixed(2);
-                    if (z > 20) {
+                    if (z > 21) {
                         value = "mcg";
-                    } else if (z > 3) {
+                    } else if (z > 4) {
                         value = "mg";
                     } else if (z > 0) {
                         value = "g";
