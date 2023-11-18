@@ -148,6 +148,17 @@
             #foodresult {
                 text-align: center;
             }
+            #continue {
+                visibility: hidden;
+            }
+            #refresh {
+                top: 0.3in;
+                left: 0.3in;
+                position: absolute;
+                text-align: center;
+                font-size: 20px;
+                visibility: hidden;
+            }
         </style>
         <script>
             var foodname = [];
@@ -162,6 +173,42 @@
             "Vitamin B5 [Pantothenic Acid]:  ", "Vitamin B6 [Pyridoxine]:  ", "Vitamin E:  ", "Vitamin A:  ", "Vitamin D:  ", "Vitamin K:  ", "Vitamin B7 [Biotin]:  ", 
             "Vitamin B9 [Folate]:  ", "Vitamin B12 [Cobalamin]:  ", "Chromium:  ", "Copper:  ", "Iodine:  ", "Molybdenum:  ", "Selenium:  ", "Chloride:  ", 
             "Sulfur: "];
+            window.onload = function preserve() {
+                if (localStorage.superboxnum) {
+                    localStorage.superboxnum = 0;
+                    window.boxnum = 1;
+                    window.fixer = 1;
+                    document.getElementById("enter").onclick = retain();
+                } else {
+                    localStorage.setItem("superboxnum", -1);
+                }
+            }
+            function retain() {
+                    document.getElementById("page1").style.visibility = "hidden";
+                    document.getElementById("area0").style.visibility = "visible";
+                    var waste = [];
+                    for (let q = 0; q < 34; q++) {
+                        var name = document.createElement("label");
+                        var space = document.createElement("br");
+                        var final = document.createElement("span");
+                        name.for = "require0" + q;
+                        name.innerHTML = nutrient[q];
+                        name.id = "topic0" + q;
+                        final.id = "claim0" + q;
+                        space.id = "lead0" + q;
+                        final.innerHTML = localStorage.getItem("detail0" + q);
+                        document.getElementById("item0").appendChild(name);
+                        document.getElementById("item0").appendChild(final);
+                        document.getElementById("item0").appendChild(space);
+                        waste.push(localStorage.getItem("detail0" + q));
+                    }
+                    data.push(waste);
+                    document.getElementById("scribble").style.visibility = "visible";
+                    document.getElementById("preserve0").style.visibility = "hidden";
+                    document.getElementById("area2").style.visibility = "visible";
+                    document.getElementById("refresh").style.visibility = "visible";
+                    progressboard();
+            }
             function create() {
                 document.getElementById("page1").style.visibility = "hidden";
                 document.getElementById("area0").style.visibility = "visible";
@@ -175,6 +222,7 @@
                     mood.innerText = signal;
                     slot.type = "text";
                     slot.id = "require" + boxnum + n;
+                    slot.value = "---" //Delete after you finish with testing
                     slot.className = "support";
                     name.for = "require" + boxnum + n;
                     name.innerHTML = nutrient[n];
@@ -186,7 +234,7 @@
                     document.getElementById("item" + boxnum).appendChild(final);
                     document.getElementById("item" + boxnum).appendChild(space);
                     document.head.appendChild(mood);
-                }
+                }  
                 if (boxnum > 0) {
                     document.getElementById("preserve1").style.visibility = "visible";
                     document.getElementById("area1").style.visibility = "visible";
@@ -218,6 +266,7 @@
                 for (let n = 0; n < 34; n++) {
                     var steal = document.getElementById("require" + boxnum + n).value;
                     fill.push(steal);
+                    localStorage.setItem("detail" + boxnum + n, steal);
                     if (steal !== "---") {
                         if (n > 20) {
                         document.getElementById("claim" + boxnum + n).innerHTML = steal + "mcg";
@@ -234,6 +283,9 @@
                     document.getElementById("require" + boxnum + n).remove();
                 }
                 data.push(fill);
+                if (localStorage.superboxnum < boxnum) {
+                    localStorage.superboxnum = Number(localStorage.superboxnum) + 1;
+                }
                 window.boxnum = window.boxnum + 1;
                 window.fixer = window.boxnum;
                 document.getElementById("preserve0").style.visibility = "hidden";
@@ -313,7 +365,7 @@
                 document.getElementById("weight").innerHTML = mass[boxnum - 1];
                 window.centipede = mass[boxnum - 1];
             }
-            function final() {
+            function progressboard() {
                 for (let c = 0; c < 34; c++) {
                     var value = "";
                     var name = document.createElement("label");
@@ -436,13 +488,16 @@
                     }
                 }
             }
+            function bye() {
+                localStorage.clear();
+            }
         </script>
     </head>
     <body>
         <div id="page1">
             <h1 id="step1" class="position">Nutrition Calculator</h1>
             <div class="position">
-                <button type="button" class="visual" onclick="create()">Custom</button>
+                <button id="enter" type="button" class="visual" onclick="create()">Custom</button>
             </div>
             <div class="space">
                 <button type="button" class="visual">Credits</button> <!-- Use this for Credits later-->
@@ -454,7 +509,7 @@
             </form>
             <div class="section">
                 <br />
-                <button type="button" id="preserve0" class="finalize" onclick="record(), final()">Save</button>
+                <button type="button" id="preserve0" class="finalize" onclick="record(), progressboard()">Save</button>
             </div>
         </div>
         <div id="area1">
@@ -486,6 +541,9 @@
         </div>
         <div id="cent">
             <span id="weight">0</span>
+        </div>
+        <div id="refresh">
+            <button type="button" class="finalize" id="empty" onclick="bye()">Reset</button>
         </div>
     </body>
 </html>
