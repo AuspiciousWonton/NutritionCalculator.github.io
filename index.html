@@ -251,7 +251,7 @@
                     }
                     if (check == "---") {
                         document.getElementById("require" + boxnum + t).style.backgroundColor = "white";
-                    } else if (check === ""  || isNaN(check) === true || check <= 0) {
+                    } else if (isNaN(check) === true || check <= 0) {
                         stop = "true";
                         document.getElementById("require" + boxnum + t).style.backgroundColor = "red"
                     } else {
@@ -259,7 +259,7 @@
                     }
                 }
                 if (stop === "true" && check !== "---") {
-                    alert("Error: Please choose a positive number (not 0), no letters, and fill all empty spaces");
+                    alert("Error: Please choose a positive number, no letters, and fill all empty spaces");
                     return; 
                 } 
                 for (let n = 0; n < 35; n++) {
