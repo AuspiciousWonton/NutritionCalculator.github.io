@@ -251,7 +251,7 @@
                     }
                     if (check == "---") {
                         document.getElementById("require" + boxnum + t).style.backgroundColor = "white";
-                    } else if (isNaN(check) === true || check <= 0) {
+                    } else if (isNaN(check) === true || check < 0) {
                         stop = "true";
                         document.getElementById("require" + boxnum + t).style.backgroundColor = "red"
                     } else {
@@ -263,7 +263,7 @@
                     return; 
                 } 
                 for (let n = 0; n < 35; n++) {
-                    var steal = document.getElementById("require" + boxnum + n).value;
+                    var steal = Number(document.getElementById("require" + boxnum + n).value);
                     fill.push(steal);
                     localStorage.setItem("detail" + boxnum + n, steal);
                     if (steal !== "---") {
